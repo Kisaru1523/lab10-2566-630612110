@@ -24,23 +24,23 @@ export default function RandomUserPage() {
 
   useEffect(() => {
     const strTasks = JSON.parse(localStorage.getItem("task"));
-    if (strTasks == null) {
+    if (strTasks === null) {
       return;
     }
     setGenAmount(parseInt(strTasks));
     // const loadedTasks = JSON.parse(genAmount);
     // setGenAmount(loadedTasks);
-    
+
     const fetchData = async () => {
       setIsLoading(true);
-      const resp = await axios.get(   
+      const resp = await axios.get(
         `https://randomuser.me/api/?results=${strTasks}`
       );
       const users = resp.data.results.map(cleanUser);
       setUsers(users);
       setIsLoading(false);
     };
-    fetchData()
+    fetchData();
   }, []);
 
   const generateBtnOnClick = async () => {
@@ -85,6 +85,7 @@ export default function RandomUserPage() {
             imgUrl={users.imgUrl}
             address={users.address}
             email={users.email}
+            key={users.email}
           />
         ))}
     </div>
